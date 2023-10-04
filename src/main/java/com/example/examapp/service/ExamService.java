@@ -4,13 +4,17 @@ import com.example.examapp.dao.ExamDAO;
 import com.example.examapp.dao.QuestionDAO;
 import com.example.examapp.model.Exam;
 import com.example.examapp.model.Question;
+import com.example.examapp.model.QuestionWrapper;
+import org.apache.tomcat.util.http.parser.HttpParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExamService {
@@ -30,5 +34,18 @@ public class ExamService {
         examDAO.save(exam);
 
         return new ResponseEntity<>("Successful exam generation", HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<List<QuestionWrapper>> getExamQuestions(Integer id) {
+        Optional<Exam> exam = examDAO.findById(id);
+        List<Question> questionFromDB = exam.get().getQuestions();
+        List<QuestionWrapper> questionsForStudent = new ArrayList<>();
+        for(Question q : questionFromDB) {
+            QuestionWrapper qw = new QuestionWrapper(q.getId(), q.getQuestionTitle(), q.getOption1(), q.getOption2(), q.getOption3(), q.getOption4());
+            questionsForStudent.add(qw);
+        }
+
+
+        return new ResponseEntity<>(questionsForStudent, HttpStatus.OK);
     }
 }
