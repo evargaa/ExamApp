@@ -19,14 +19,7 @@ public class QuestionService {
     QuestionDAO questionDAO;
 
 
-    public ResponseEntity<Optional<Question>> findQuestionById(Integer id) {
-        try {
-            return new ResponseEntity<>(questionDAO.findById(id), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(questionDAO.findById(null), HttpStatus.BAD_REQUEST);
-    }
+
 
     public ResponseEntity<List<Question>> getallQuestions() {
         try {

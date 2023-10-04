@@ -21,11 +21,6 @@ public class QuestionController {
         return questionService.getallQuestions();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<Question>> getQuestionById(@PathVariable Integer id) {
-        return questionService.findQuestionById(id);
-    }
-
     @PostMapping("addQuestion")
     public ResponseEntity<String> addQuestion(@RequestBody Question newQuestion) {
        return questionService.addNewQuestion(newQuestion);
