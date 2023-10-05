@@ -7,6 +7,7 @@ This is the back-end of an exam app project, currently under development. It wil
 1. Clone this repository to your local machine.
 2. Install the required dependencies (list them here when known).
 3. Run the application using `npm start` or `yarn start` (add specific command when known).
+4. You need to use a database for this project.
 
 ## Usage
 
