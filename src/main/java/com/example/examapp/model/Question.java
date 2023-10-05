@@ -23,4 +23,12 @@ public class Question {
     private String option4;
     private String correctAnswer;
 
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
 }

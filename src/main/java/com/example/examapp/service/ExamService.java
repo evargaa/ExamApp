@@ -5,6 +5,7 @@ import com.example.examapp.dao.QuestionDAO;
 import com.example.examapp.model.Exam;
 import com.example.examapp.model.Question;
 import com.example.examapp.model.QuestionWrapper;
+import com.example.examapp.model.Response;
 import org.apache.tomcat.util.http.parser.HttpParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,5 +48,19 @@ public class ExamService {
 
 
         return new ResponseEntity<>(questionsForStudent, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Integer> calculateResult(Integer id, List<Response> response) {
+        Exam exam = examDAO.findById(id).get();
+        List<Question> questions = exam.getQuestions();
+        int correct = 0;
+        int i = 0;
+        for(Response responses : response) {
+            if(responses.getResponse().equals(questions.get(i).getCorrectAnswer()))
+                correct++;
+
+            i++;
+        }
+        return new ResponseEntity<>(correct, HttpStatus.OK);
     }
 }

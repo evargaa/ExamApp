@@ -1,6 +1,7 @@
 package com.example.examapp.controller;
 
 import com.example.examapp.model.QuestionWrapper;
+import com.example.examapp.model.Response;
 import com.example.examapp.service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,5 +26,10 @@ public class ExamController {
     @GetMapping("get/{id}")
     public ResponseEntity<List<QuestionWrapper>> getExamQuestions(@PathVariable Integer id) {
         return examService.getExamQuestions(id);
+    }
+
+    @PostMapping("submit/{id}")
+    public ResponseEntity<Integer> sumbitExam(@PathVariable Integer id,  @RequestBody List<Response> response) {
+    return examService.calculateResult(id, response);
     }
 }
